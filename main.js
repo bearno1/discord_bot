@@ -80,6 +80,7 @@ client.on('message', msg => {
           }
           break;
         case '!list':
+          isnote = 'true';
           isprint = 'true';
           note_print = 'list:\n';
           for(i=0;i<note_size;i++){
