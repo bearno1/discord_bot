@@ -90,6 +90,7 @@ client.on('message', msg => {
               note_print += '.'+note[i]+'\n';
             }
           }
+          break;
         default:
           msg.channel.send('I can\'t understand you');
           break;
