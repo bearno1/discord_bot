@@ -6,12 +6,12 @@ var collect = new Array();
 
 client.once('ready',() => {
     console.log('Blueberry now online');
-    client.channels.cache.get('724600369505632379').send('Hi! I am Blueberry.\nVersion:1.0.0(beta test)\nto Command ME\n#bb !newnote <notename> เพิ่ม note ใหม่\n#bb !addnote <notename> <notemassage> เพิ่มข้อความใน note\n#bb !removenote <notename> ลบ note นั้นออก\n#bb !printnote <notename> พิมพ์ข้อความใน note นั้น');
+    client.channels.cache.get('724600369505632379').send('Hi! I am Blueberry.\nVersion:1.0.1(beta test)\nto Command ME\n#bb !newnote <notename> เพิ่ม note ใหม่\n#bb !addnote <notename> <notemassage> เพิ่มข้อความใน note\n#bb !removenote <notename> ลบ note นั้นออก\n#bb !printnote <notename> พิมพ์ข้อความใน note นั้น\nNEW fuction!!!\n#bb !list พิมพ์ชื่อ note ทั้งหมด');
 });
 
 client.login(process.env.token);
 
-client.on('message', msg => {
+client.on('message', msg => { 
     let arg = msg.content.substring(prefix.length).split(" ");
 
     if(!msg.content.startsWith(prefix))return;
@@ -23,7 +23,7 @@ client.on('message', msg => {
     var arg_size = arg.length;
     var note_size = note.length;
     var isnote = 'false';
-    var i,j;
+    var i,j,rr=1;
     var note_print;
     var isprint = 'false';
     var isnoteprint = 'false';
@@ -71,7 +71,7 @@ client.on('message', msg => {
           break;
         case '!removenote':
           isprint = 'true';
-          note_print = 'remove '+arg[2];;
+          note_print = 'remove '+arg[2];
           for(i=0;i<note_size;i++){
             if(note[i]==arg[2]){
               note[i]='error';
@@ -79,6 +79,16 @@ client.on('message', msg => {
             }
           }
           break;
+        case '!list':
+          isprint = 'true';
+          note_print = 'list:\n';
+          for(i=0;i<note_size;i++){
+            if(note[i]!='error'){
+              note_print += rr;
+              rr++;
+              note_print += '.'+note[i]+'\n';
+            }
+          }
         default:
           msg.channel.send('I can\'t understand you');
           break;
