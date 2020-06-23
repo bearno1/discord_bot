@@ -61,10 +61,12 @@ client.on('message', msg => {
           for(i=0;i<note_size;i++){
             if(note[i]==arg[2]){
               isnote = 'true';
+              var collect_size = collect[i].length;
               for(j=3;j<arg_size;j++){
-                if(j!=3)note_print += ',';
+                if(j!=3)note_print += ' ';
                 note_print += arg[j];
-                collect[i].push(arg[j]);
+                if(j==3)collect[i].push(arg[j]);
+                else collect[i][collect_size]+=' '+arg[j];
               }
             }
           }
