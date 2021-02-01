@@ -10,6 +10,7 @@ client.on('ready', () => {
 });
 
 client.on('message', msg => {
+  if(msg[0]!=prefix)return;
   let mes = msg.content.substring(prefix.length).split(" ");
   msg.channel.send(mes[0]);
   switch(mes[0]) {
