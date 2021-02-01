@@ -25,7 +25,7 @@ client.on('message', msg => {
     default :
       emo=":grinning:"
   }
-  msg.channel.send("Hi "+msg.member.displayName+" "+emo);
+  msg.channel.send("Hi "+msg.member.displayName);
   if(msg.content[0]!=prefix)return;
   let mes = msg.content.substring(prefix.length).split(" ");
   return;
