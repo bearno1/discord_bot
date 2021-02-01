@@ -10,6 +10,7 @@ client.on('ready', () => {
 });
 
 client.on('message', msg => {
+  if(msg.member.displayName=="Blueberry")return;
   msg.channel.send(msg.member.displayName);
   if(msg.content[0]!=prefix)return;
   let mes = msg.content.substring(prefix.length).split(" ");
