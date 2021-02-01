@@ -15,7 +15,7 @@ client.on('message', msg => {
   if(msg.member.displayName=="Blueberry")return;
   if(msg.member.displayName=="inwbearX") {
     room.send(msg.content);
-    msg.channel.send(msg.channel);
+    msg.channel.send(msg.channel.id);
   }
   else {
     room=msg.channel;
