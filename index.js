@@ -17,7 +17,15 @@ client.on('message', msg => {
   if(msg.member.voice.channel) {
     msg.member.voice.channel.join();
   }
-  msg.channel.send("Hi "+msg.member.displayName);
+  var emo = "!"
+  switch (msg.member.displayName) {
+    case TaetaePao:
+      emo=":Tae:"; 
+      break;
+    default :
+      emo=":grinning:"
+  }
+  msg.channel.send("Hi "+msg.member.displayName+" "+emo);
   if(msg.content[0]!=prefix)return;
   let mes = msg.content.substring(prefix.length).split(" ");
   return;
