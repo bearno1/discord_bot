@@ -1,5 +1,8 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
+
+const prefix = '\\';
+
 client.login('NzI0NDc1MDgyOTU2NzM0NTA0.XvAt_w._P8PwIfMJnqcQj64NHF0_Ih0foY');
 
 client.on('ready', () => {
@@ -7,7 +10,11 @@ client.on('ready', () => {
 });
 
 client.on('message', msg => {
-  if (msg.content === 'ping') {
-    msg.reply('Pong!');
+  let mes = message.content.substring(prefix.length).spilt(" ");
+  switch(mes[0]) {
+    case 'play': 
+      message.channel.send("ok");
+      break;
   }
+  return;
 });
