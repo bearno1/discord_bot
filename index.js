@@ -14,17 +14,6 @@ client.on('ready', () => {
 
 client.on('message', msg => {
   if(msg.member.displayName=="Blueberry")return;
-  if(msg.member.voice.channel) {
-    msg.member.voice.channel.join();
-  }
-  var emo = "!"
-  switch (msg.member.displayName) {
-    case TaetaePao:
-      emo=":Tae:"; 
-      break;
-    default :
-      emo=":grinning:"
-  }
   msg.channel.send("Hi "+msg.member.displayName);
   if(msg.content[0]!=prefix)return;
   let mes = msg.content.substring(prefix.length).split(" ");
