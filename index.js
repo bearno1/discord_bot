@@ -19,7 +19,7 @@ client.on('message', msg => {
   }
   if(msg.member.displayName=="Groovy") {
     if(playlist<CountMyplaylist){
-      msg.channel.send("-play" + Myplaylist[playlist]);
+      msg.channel.send("-play " + Myplaylist[playlist]);
       playlist++;
     }
     else {
