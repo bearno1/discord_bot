@@ -3,7 +3,7 @@ const client = new Discord.Client();
 
 const prefix = '!';
 const Greetinglist = ["Hi ","Hey ","สวัสดี "," Yo ","你好 ","Good Luck! "];
-const Countgreetinglist = 5;
+const Countgreetinglist = Greetinglist.length;
 let Ngreetinglist = 0;
 
 client.login('NzI0NDc1MDgyOTU2NzM0NTA0.XvAt_w._P8PwIfMJnqcQj64NHF0_Ih0foY');
