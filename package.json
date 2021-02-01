@@ -2,13 +2,21 @@
   "name": "discord_bot",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "inwbear",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bearno1/discord_bot.git"
+  },
+  "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bearno1/discord_bot/issues"
+  },
+  "homepage": "https://github.com/bearno1/discord_bot#readme",
   "dependencies": {
-    "discord.js": "^12.2.0"
+    "discord.js": "^12.5.1"
   }
 }
