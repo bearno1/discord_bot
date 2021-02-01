@@ -13,9 +13,8 @@ client.on('ready', () => {
 
 client.on('message', msg => {
   if(msg.member.displayName=="Blueberry")return;
-  if(msg.member.displayName=="inwbearX") {
+  if(room!=msg.channel) {
     room.send(msg.content);
-    msg.channel.send("ok");
   }
   else {
     room=msg.channel;
