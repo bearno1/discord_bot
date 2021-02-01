@@ -10,7 +10,7 @@ client.on('ready', () => {
 });
 
 client.on('message', msg => {
-  let mes = msg.content.substring(prefix.length).spilt(" ");
+  let mes = msg.content.substring(prefix.length).split(" ");
   msg.channel.send(mes[0]);
   switch(mes[0]) {
     case 'play': 
