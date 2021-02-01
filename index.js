@@ -14,7 +14,7 @@ client.on('message', msg => {
   msg.channel.send(mes[0]);
   switch(mes[0]) {
     case 'play': 
-      message.channel.send("ok");
+      msg.channel.send("ok");
       break;
   }
   return;
