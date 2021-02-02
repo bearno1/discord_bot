@@ -13,7 +13,7 @@ client.on('ready', () => {
 });
 
 client.on('message', msg => {
-  if(msg.member.displayName=="Blueberry")return;
+  if(msg.member.displayName=="Blueberry"||msg.member.displayName=="Doge")return;
   if(isroom) {
     if(msg.channel!=room) {
       room.send(msg.content);
