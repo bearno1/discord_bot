@@ -100,6 +100,7 @@ client.on('message', msg => {
       break;
     case "help":
       msg.channel.send(helpEmbed);
+      break;
     default:
       msg.channel.send(defaultEmbed);
   }
