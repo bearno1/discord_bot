@@ -4,12 +4,24 @@ const client = new Discord.Client();
 var prefix = '=';
 var prefixEmbed = new Discord.MessageEmbed()
     .setColor('#4f86f7')
-    .setDescription("This channal's prefix is =");
+    .setDescription("This channal's prefix is =.");
 function setPrefix(newPrefix) {
     prefix = newPrefix;
-    prefixEmbed.setDescription("This channal's prefix is "+prefix);
+    prefixEmbed.setDescription("This channal's prefix is "+prefix+".");
     return;
 }
+
+var mainChannel;
+var mainEmbed = new Discord.MessageEmbed()
+    .setColor('#4f86f7')
+    .setDescription("This is main channel.");
+var errorNoMsgEmbed = new Discord.MessageEmbed()
+    .setColor('#FF6347')
+    .setDescription("forget message!!!");
+var mainEmbed = new Discord.MessageEmbed()
+    .setColor('#FF6347')
+    .setDescription("You must set main channel!!!");
+
 
 var defaultEmbed = new Discord.MessageEmbed()
     .setColor('#FF6347')
@@ -28,13 +40,29 @@ client.on('message', msg => {
   switch(mes[0]) {
     case "prefix":
       if(mes[1]) {
-        setPrefix(mes[1]);
+        setPrefix([1]);
         msg.channel.send(prefixEmbed);
       }
       else {
         msg.channel.send(prefixEmbed);
       }
       break;
+    case "main":
+      mainChannel = msg.channel;
+      msg.channel.send(mainEmbed);
+      break;
+    case "talk":
+      if(mainChannel) {
+        if(mes[1]) {
+          mainChannel.send(mes[1]);
+        }
+        else {
+          msg.channel.send(errorNoMsgEmbed);
+        }
+      }
+      else {
+        msg.channel.send(errorNomainChannelEmbed);
+      }
     default:
       msg.channel.send(defaultEmbed);
   }
