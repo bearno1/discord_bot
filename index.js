@@ -3,13 +3,17 @@ const client = new Discord.Client();
 
 var prefix = '=';
 var prefixEmbed = new Discord.MessageEmbed()
-    .setColor('#0099ff')
+    .setColor('#4f86f7')
     .setDescription("This channal's prefix is =");
 function setPrefix(newPrefix) {
     prefix = newPrefix;
     prefixEmbed.setDescription("This channal's prefix is "+prefix);
     return;
 }
+
+var defaultEmbed = new Discord.MessageEmbed()
+    .setColor('#FF6347')
+    .setDescription("ฉันไม่เข้าใจคุณ");
 
 client.login('NzI0NDc1MDgyOTU2NzM0NTA0.XvAt_w._P8PwIfMJnqcQj64NHF0_Ih0foY');
 
@@ -32,7 +36,7 @@ client.on('message', msg => {
       }
       break;
     default:
-      msg.channel.send("ฉันไม่เข้าใจคุณ");
+      msg.channel.send(defaultEmbed);
   }
   return;
 });
