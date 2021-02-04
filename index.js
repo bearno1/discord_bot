@@ -35,10 +35,13 @@ function sendTalk(messageTalk) {
   talkEmbed.setDescription("Sending: "+messageTalk+" to Room: "+mainChannel.name);
 }
 
-const helpEmbed = new Discord.MessageEmbed()
+var helpEmbed = new Discord.MessageEmbed()
     .setColor('#C7B5E3')
     .setTitle("Command")
-    .setDescription("=lucky : ดูดวงของคุณวันนี้");
+function setHelp() {
+  helpEmbed.setDescription(prefix+"lucky : ดูดวงของคุณวันนี้");
+  return;
+}
 
 var luckyEmbed = new Discord.MessageEmbed()
     .setColor('#fff44f')
@@ -99,6 +102,7 @@ client.on('message', msg => {
       msg.channel.send(luckyEmbed);
       break;
     case "help":
+      setHelp();
       msg.channel.send(helpEmbed);
       break;
     default:
