@@ -1,7 +1,9 @@
+import setPrefix from "./config/prefix";
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
-const prefix = '=';
+var prefix = '=';
+setPrefix(prefix)
 
 client.login('NzI0NDc1MDgyOTU2NzM0NTA0.XvAt_w._P8PwIfMJnqcQj64NHF0_Ih0foY');
 
@@ -10,12 +12,18 @@ client.on('ready', () => {
 });
 
 client.on('message', msg => {
-  if(msg.member.displayName=="Blueberry")return;
-  if(msg.content[0]!=prefix)return;
+  if(msg.member.displayName == "Blueberry")return;
+  if(msg.content[0] != prefix)return;
   let mes = msg.content.substring(prefix.length).split(" ");
-  switch(mes[0]){
-    case "play":
-      msg.channel.send("play");
+  switch(mes[0]) {
+    case "prefix":
+      if(mes[1]) {
+        setPrefix(mes[1]);
+        msg.channel.send(prefixEmbed);
+      }
+      else {
+        msg.channel.send(prefixEmbed);
+      }
       break;
     default:
       msg.channel.send("ฉันไม่เข้าใจคุณ");
