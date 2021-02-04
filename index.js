@@ -30,7 +30,7 @@ var talkEmbed = new Discord.MessageEmbed()
     .setColor('#4f86f7');
 function sendTalk(messageTalk) {
   mainChannel.send(messageTalk);
-  talkEmbed.setDescription("send:"+messageTalk+" Room:"+mainChannel.displayName);
+  talkEmbed.setDescription("send:"+messageTalk+" Room:"+mainChannel.name);
 }
 
 client.login('NzI0NDc1MDgyOTU2NzM0NTA0.XvAt_w._P8PwIfMJnqcQj64NHF0_Ih0foY');
