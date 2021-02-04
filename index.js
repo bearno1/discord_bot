@@ -18,7 +18,7 @@ var mainEmbed = new Discord.MessageEmbed()
 var errorNoMsgEmbed = new Discord.MessageEmbed()
     .setColor('#FF6347')
     .setDescription("forget message!!!");
-var mainEmbed = new Discord.MessageEmbed()
+var errorNomainChannelEmbed = new Discord.MessageEmbed()
     .setColor('#FF6347')
     .setDescription("You must set main channel!!!");
 
