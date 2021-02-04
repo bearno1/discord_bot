@@ -1,9 +1,15 @@
-import setPrefix from "./config/prefix";
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
 var prefix = '=';
-setPrefix(prefix)
+var prefixEmbed = new Discord.MessageEmbed()
+    .setColor('#0099ff')
+    .setDescription("This channal's prefix is =");
+function setPrefix(newPrefix) {
+    prefix = newPrefix;
+    prefixEmbed.setDescription("This channal's prefix is "+prefix);
+    return;
+}
 
 client.login('NzI0NDc1MDgyOTU2NzM0NTA0.XvAt_w._P8PwIfMJnqcQj64NHF0_Ih0foY');
 
