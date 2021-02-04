@@ -47,12 +47,19 @@ var luckyEmbed = new Discord.MessageEmbed()
     .setColor('#fff44f')
 function luckyCal(User) {
   luck = Math.abs(luck * Number(User.id)) % 11;
-  luck = String(luck);
   luckyEmbed
-    .setDescription("Lucky Level : "+luck)
-    .setImage('https://stickershop.line-scdn.net/stickershop/v1/product/1019505/LINEStorePC/main.png')
-    .setTitle("ดวงวันนี้ของ "+User.displayName)
-    return;
+    .setDescription("Lucky Level : "+String(luck))
+    .setTitle("ดวงวันนี้ของ "+User.displayName);
+  if(luck<3) {
+    luckyEmbed.setImage('https://ak.picdn.net/shutsterstock/videos/16650817/thumb/1.jpg');
+  }
+  else if(luck<7) {
+    luckyEmbed.setImage('https://i.pinimg.com/originals/d1/c4/6a/d1c46aa2d4a523998e140243e6985ae2.png');
+  }
+  else {
+    luckyEmbed.setImage('https://stickershop.line-scdn.net/stickershop/v1/product/1019505/LINEStorePC/main.png');
+  }
+  return;
 }
 
 client.login('NzI0NDc1MDgyOTU2NzM0NTA0.XvAt_w._P8PwIfMJnqcQj64NHF0_Ih0foY');
