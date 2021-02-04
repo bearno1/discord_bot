@@ -58,7 +58,7 @@ client.on('message', msg => {
       msg.channel.send(mainEmbed);
       break;
     case "talk":
-      for(var i = 1; i < mes.length; i++) {
+      for(var i = 2; i < mes.length; i++) {
         mes[1] = mes[1] + " " + mes[i];
       }
       if(mainChannel) {
