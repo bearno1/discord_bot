@@ -75,7 +75,7 @@ client.on('message', msg => {
   switch(mes[0]) {
     case "prefix":
       if(mes[1]) {
-        setPrefix([1]);
+        setPrefix(mes[1]);
         msg.channel.send(prefixEmbed);
       }
       else {
