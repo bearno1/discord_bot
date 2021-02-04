@@ -43,7 +43,7 @@ function luckyCal(User) {
   luckyEmbed
     .setDescription("Lucky Level : "+luck)
     .setImage('https://mpics.mgronline.com/pics/Images/563000005307201.JPEG')
-    .setTitle("ดวงวันนี้ของ "+'<@'+User.id+'>');
+    .setTitle(`ดวงวันนี้ของ ${User.tag}`);
     return;
 }
 
