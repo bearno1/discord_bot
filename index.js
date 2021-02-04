@@ -63,6 +63,7 @@ client.on('message', msg => {
       else {
         msg.channel.send(errorNomainChannelEmbed);
       }
+      break;
     default:
       msg.channel.send(defaultEmbed);
   }
