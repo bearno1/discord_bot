@@ -42,9 +42,8 @@ function luckyCal(User) {
   luck = String(luck);
   luckyEmbed
     .setDescription("Lucky Level : "+luck)
-    .setImage('https://mpics.mgronline.com/pics/Images/563000005307201.JPEG')
+    .setImage('https://stickershop.line-scdn.net/stickershop/v1/product/1019505/LINEStorePC/main.png')
     .setTitle("ดวงวันนี้ของ "+User.displayName)
-    .setThumbnail(User.displayAvatarURL());
     return;
 }
 
