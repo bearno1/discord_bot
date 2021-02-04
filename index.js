@@ -1,6 +1,8 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
+var luck = 0;
+
 var prefix = '=';
 var prefixEmbed = new Discord.MessageEmbed()
     .setColor('#4f86f7')
@@ -31,6 +33,18 @@ var talkEmbed = new Discord.MessageEmbed()
 function sendTalk(messageTalk) {
   mainChannel.send(messageTalk);
   talkEmbed.setDescription("Sending: "+messageTalk+" to Room: "+mainChannel.name);
+}
+
+var luckyEmbed = new Discord.MessageEmbed()
+    .setColor('#fff44f')
+function luckyCal(User) {
+  luck = Math.abs(luck * Number(User.id)) % 11;
+  luck = String(luck);
+  luckyEmbed
+    .setDescription("Lucky Level : "+luck)
+    .setImage('https://mpics.mgronline.com/pics/Images/563000005307201.JPEG')
+    .setTitle("ดวงวันนี้ของ "+'<@'+User.id+'>');
+    return;
 }
 
 client.login('NzI0NDc1MDgyOTU2NzM0NTA0.XvAt_w._P8PwIfMJnqcQj64NHF0_Ih0foY');
@@ -73,6 +87,11 @@ client.on('message', msg => {
       else {
         msg.channel.send(errorNomainChannelEmbed);
       }
+      break;
+    case "lucky":
+      luck = msg.createdAt.getDate() + msg.createdAt.getMonth() + msg.createdAt.getFullYear();
+      luckyCal(msg.member);
+      msg.channel.send(luckyEmbed);
       break;
     default:
       msg.channel.send(defaultEmbed);
