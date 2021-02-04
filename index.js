@@ -51,7 +51,7 @@ function luckyCal(User) {
     .setDescription("Lucky Level : "+String(luck))
     .setTitle("ดวงวันนี้ของ "+User.displayName);
   if(luck<3) {
-    luckyEmbed.setImage('https://ak.picdn.net/shutsterstock/videos/16650817/thumb/1.jpg');
+    luckyEmbed.setImage('https://i0.wp.com/ideasfornames.com/wp-content/uploads/2019/08/Depositphotos_61818125_s-2019.jpg');
   }
   else if(luck<7) {
     luckyEmbed.setImage('https://i.pinimg.com/originals/d1/c4/6a/d1c46aa2d4a523998e140243e6985ae2.png');
