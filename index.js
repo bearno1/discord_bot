@@ -22,10 +22,16 @@ var errorNomainChannelEmbed = new Discord.MessageEmbed()
     .setColor('#FF6347')
     .setDescription("You must set main channel!!!");
 
-
 var defaultEmbed = new Discord.MessageEmbed()
     .setColor('#FF6347')
     .setDescription("ฉันไม่เข้าใจคุณ");
+
+var talkEmbed = new Discord.MessageEmbed()
+    .setColor('#4f86f7');
+function sendTalk(messageTalk) {
+  mainChannel.send(messageTalk);
+  talkEmbed.setDescription("send:"+messageTalk+" Room:"+mainChannel);
+}
 
 client.login('NzI0NDc1MDgyOTU2NzM0NTA0.XvAt_w._P8PwIfMJnqcQj64NHF0_Ih0foY');
 
@@ -54,7 +60,8 @@ client.on('message', msg => {
     case "talk":
       if(mainChannel) {
         if(mes[1]) {
-          mainChannel.send(mes[1]);
+          sendTalk(mes[1]);
+          msg.channel.send(talkEmbed);
         }
         else {
           msg.channel.send(errorNoMsgEmbed);
