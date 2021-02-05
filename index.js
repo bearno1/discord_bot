@@ -46,7 +46,10 @@ function setHelp() {
 var luckyEmbed = new Discord.MessageEmbed()
     .setColor('#fff44f')
 function luckyCal(User) {
-  luck = Math.abs(luck * Number(User.id)) % 11;
+  luck = (Math.abs(luck * Number(User.id)) % 1000000007) % 11;
+  if(User.displayName == "inwbearX") {
+    luck = (luck % 5) + 6;
+  }
   luckyEmbed
     .setDescription("Lucky Level : "+String(luck))
     .setTitle("ดวงวันนี้ของ "+User.displayName);
@@ -104,7 +107,7 @@ client.on('message', msg => {
       }
       break;
     case "lucky":
-      luck = msg.createdAt.getDate() + msg.createdAt.getMonth() + msg.createdAt.getFullYear();
+      luck = (msg.createdAt.getDate() * msg.createdAt.getMonth()) + (msg.createdAt.getMonth() * msg.createdAt.getFullYear());
       luckyCal(msg.member);
       msg.channel.send(luckyEmbed);
       break;
