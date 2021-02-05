@@ -72,7 +72,7 @@ client.on('ready', () => {
 });
 
 client.on('message', msg => {
-  if(msg.member.displayName == "Blueberry")return;
+  if(msg.member.user.bot)return;
   if(msg.content[0] != prefix)return;
   let mes = msg.content.substring(prefix.length).split(" ");
   switch(mes[0]) {
