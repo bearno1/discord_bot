@@ -48,7 +48,7 @@ var luckyEmbed = new Discord.MessageEmbed()
 function luckyCal(User) {
   luck = (Math.abs(luck * Number(User.id)) % 1000000007) % 11;
   if(User.displayName == "inwbearX") {
-    luck = (luck % 5) + 6;
+    luck = (luck % 3) + 8;
   }
   luckyEmbed
     .setDescription("Lucky Level : "+String(luck))
