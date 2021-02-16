@@ -46,9 +46,9 @@ function setHelp() {
 var luckyEmbed = new Discord.MessageEmbed()
     .setColor('#fff44f')
 function luckyCal(User) {
-  luck = (Math.abs(luck * Number(User.id)) % 1000000007) % 11;
+  luck = (Math.abs(luck * Number(User.id)) % 1000025167) % 11;
   if(User.displayName == "inwbearX") {
-    luck = (luck % 3) + 8;
+    luck = 1000000;
   }
   luckyEmbed
     .setDescription("Lucky Level : "+String(luck))
