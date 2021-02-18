@@ -1,9 +1,7 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
-var luck = {};
-var lastlucky = {};
-var id;
+var luck = 0;
 
 var prefix = '=';
 var prefixEmbed = new Discord.MessageEmbed()
@@ -47,15 +45,14 @@ function setHelp() {
 
 var luckyEmbed = new Discord.MessageEmbed()
     .setColor('#fff44f')
-function luckyCal(msg) {
-  id = msg.member.id();
-  if(lastlucky[id] != msg.createdAt.getDate()) {
-    lastlucky[id] = msg.createdAt.getDate();
-    luck[id] = Math.floor(Math.random() * 11); 
+function luckyCal(User) {
+  luck = (Math.abs(luck * Number(User.id)) % 1000025167) % 11;
+  if(User.displayName == "inwbearX") {
+    luck = 1000000;
   }
   luckyEmbed
-    .setDescription("Lucky Level : "+String(luck[id]))
-    .setTitle("ดวงวันนี้ของ "+msg.member.displayName);
+    .setDescription("Lucky Level : "+String(luck))
+    .setTitle("ดวงวันนี้ของ "+User.displayName);
   if(luck<3) {
     luckyEmbed.setImage('https://i0.wp.com/ideasfornames.com/wp-content/uploads/2019/08/Depositphotos_61818125_s-2019.jpg');
   }
@@ -110,7 +107,8 @@ client.on('message', msg => {
       }
       break;
     case "lucky":
-      luckyCal(msg);
+      luck = (msg.createdAt.getDate() * msg.createdAt.getMonth()) + (msg.createdAt.getMonth() * msg.createdAt.getFullYear());
+      luckyCal(msg.member);
       msg.channel.send(luckyEmbed);
       break;
     case "help":
