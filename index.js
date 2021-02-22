@@ -75,68 +75,52 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
 
-// client.on('message', msg => {
-//   if(msg.member.user.bot)return;
-//   if(msg.content[0] != prefix)return;
-//   let mes = msg.content.substring(prefix.length).split(" ");
-//   switch(mes[0]) {
-//     case "prefix":
-//       if(mes[1]) {
-//         setPrefix(mes[1]);
-//         msg.channel.send(prefixEmbed);
-//       }
-//       else {
-//         msg.channel.send(prefixEmbed);
-//       }
-//       break;
-//     case "main":
-//       mainChannel = msg.channel;
-//       msg.channel.send(mainEmbed);
-//       break;
-//     case "talk":
-//       for(var i = 2; i < mes.length; i++) {
-//         mes[1] = mes[1] + " " + mes[i];
-//       }
-//       if(mainChannel) {
-//         if(mes[1]) {
-//           sendTalk(mes[1]);
-//           msg.channel.send(talkEmbed);
-//         }
-//         else {
-//           msg.channel.send(errorNoMsgEmbed);
-//         }
-//       }
-//       else {
-//         msg.channel.send(errorNomainChannelEmbed);
-//       }
-//       break;
-//     case "lucky":
-//       luck = (msg.createdAt.getDate() * msg.createdAt.getMonth()) + (msg.createdAt.getMonth() * msg.createdAt.getFullYear());
-//       luckyCal(msg.member);
-//       msg.channel.send(luckyEmbed);
-//       break;
-//     case "help":
-//       setHelp();
-//       msg.channel.send(helpEmbed);
-//       break;
-//     case "play":
-//       if(msg.member.voice.channel) {
-//         msg.channel.send(playEmbed);
-//         const connection = msg.member.voice.channel.join();
-//         connection.play('test.mp3');
-//       }
-//       break;
-//     default:
-//       msg.channel.send(defaultEmbed);
-//   }
-//   return;
-// });
-
-client.on('message', async msg => {
+client.on('message', msg => {
   if(msg.member.user.bot)return;
-	if (msg.member.voice.channel) {
-    const connection = await msg.member.voice.channel.join();
-    connection.play('test.mp3');
-	}
+  if(msg.content[0] != prefix)return;
+  let mes = msg.content.substring(prefix.length).split(" ");
+  switch(mes[0]) {
+    case "prefix":
+      if(mes[1]) {
+        setPrefix(mes[1]);
+        msg.channel.send(prefixEmbed);
+      }
+      else {
+        msg.channel.send(prefixEmbed);
+      }
+      break;
+    case "main":
+      mainChannel = msg.channel;
+      msg.channel.send(mainEmbed);
+      break;
+    case "talk":
+      for(var i = 2; i < mes.length; i++) {
+        mes[1] = mes[1] + " " + mes[i];
+      }
+      if(mainChannel) {
+        if(mes[1]) {
+          sendTalk(mes[1]);
+          msg.channel.send(talkEmbed);
+        }
+        else {
+          msg.channel.send(errorNoMsgEmbed);
+        }
+      }
+      else {
+        msg.channel.send(errorNomainChannelEmbed);
+      }
+      break;
+    case "lucky":
+      luck = (msg.createdAt.getDate() * msg.createdAt.getMonth()) + (msg.createdAt.getMonth() * msg.createdAt.getFullYear());
+      luckyCal(msg.member);
+      msg.channel.send(luckyEmbed);
+      break;
+    case "help":
+      setHelp();
+      msg.channel.send(helpEmbed);
+      break;
+    default:
+      msg.channel.send(defaultEmbed);
+  }
   return;
 });
