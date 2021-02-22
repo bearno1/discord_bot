@@ -117,7 +117,7 @@ client.on('message', msg => {
       break;
     case "play":
       if(msg.member.voice.channel) {
-        const connection = await msg.member.voice.channel.join();
+        const connection = msg.member.voice.channel.join();
         connection.play('test.mp3');
       }
       break;
