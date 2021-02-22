@@ -136,7 +136,7 @@ client.on('message', async message => {
   if(msg.member.user.bot)return;
 	if (message.member.voice.channel) {
 		const connection = await message.member.voice.channel.join();
-    connection.play('audio.mp3');
+    connection.play('test.mp3');
 	}
   return;
 });
