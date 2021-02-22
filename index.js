@@ -132,7 +132,7 @@ client.on('ready', () => {
 //   return;
 // });
 
-client.on('message', async message => {
+client.on('message', async msg => {
   if(msg.member.user.bot)return;
   msg.channel.send("ok");
 	// if (message.member.voice.channel) {
