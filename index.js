@@ -120,7 +120,7 @@ client.on('message', msg => {
       msg.channel.send(helpEmbed);
       break;
     case "play":
-      if(msg.member.voiceChannel) {
+      if(true) {
         msg.channel.send(playEmbed);
         const connection = msg.member.voiceChannel.join();
         connection.play('test.mp3');
