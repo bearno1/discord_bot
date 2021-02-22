@@ -120,6 +120,7 @@ client.on('message', msg => {
         const connection = await msg.member.voice.channel.join();
         connection.play('test.mp3');
       }
+      break;
     default:
       msg.channel.send(defaultEmbed);
   }
