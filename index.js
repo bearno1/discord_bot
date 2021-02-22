@@ -43,6 +43,10 @@ function setHelp() {
   return;
 }
 
+var playEmbed = new Discord.MessageEmbed()
+    .setColor('#C7B5E3')
+    .setDescription("Now playing!!!");
+
 var luckyEmbed = new Discord.MessageEmbed()
     .setColor('#fff44f')
 function luckyCal(User) {
@@ -117,6 +121,7 @@ client.on('message', msg => {
       break;
     case "play":
       if(msg.member.voice.channel) {
+        msg.channel.send(playEmbed);
         const connection = msg.member.voice.channel.join();
         connection.play('test.mp3');
       }
