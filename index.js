@@ -1,4 +1,6 @@
 const Discord = require('discord.js');
+const fs = require('fs');
+const ytdl = require("ytdl-core");
 const { lastIndexOf } = require('ffmpeg-static');
 const client = new Discord.Client();
 
@@ -71,7 +73,7 @@ var playEmbed = new Discord.MessageEmbed()
     .setDescription("Now Playing!!");
 async function play(voiceChannel,Music) {
 	const connection = await voiceChannel.join();
-	connection.play(Music);
+	connection.play(ytdl(Music,{filter:'audioonly'}));
   return;
 }
 
