@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const { lastIndexOf } = require('ffmpeg-static');
 const client = new Discord.Client();
 
 var luck = 0;
@@ -65,6 +66,15 @@ function luckyCal(User) {
   return;
 }
 
+var playEmbed = new Discord.MessageEmbed()
+    .setColor('#4f86f7')
+    .setDescription("Now Playing!!!");
+async function play(voiceChannel) {
+	const connection = await voiceChannel.join();
+	connection.play('test.mp3');
+  return;
+}
+
 client.login('NzI0NDc1MDgyOTU2NzM0NTA0.XvAt_w._P8PwIfMJnqcQj64NHF0_Ih0foY');
 
 client.on('ready', () => {
@@ -114,6 +124,12 @@ client.on('message', msg => {
     case "help":
       setHelp();
       msg.channel.send(helpEmbed);
+      break;
+    case "play":
+      if(msg.member.voice.channel) {
+        msg.channel.send(playEmbed);
+        play(msg.member.voice.channel);
+      }
       break;
     default:
       msg.channel.send(defaultEmbed);
