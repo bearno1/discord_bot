@@ -1,144 +1,144 @@
-const Discord = require('discord.js');
-const fs = require('fs');
-const ytdl = require("ytdl-core");
-const { lastIndexOf } = require('ffmpeg-static');
-const client = new Discord.Client();
+// const Discord = require('discord.js');
+// const fs = require('fs');
+// const ytdl = require("ytdl-core");
+// const { lastIndexOf } = require('ffmpeg-static');
+// const client = new Discord.Client();
 
-var luck = {};
-var lastlucky = {};
-var id;
+// var luck = {};
+// var lastlucky = {};
+// var id;
 
-var prefix = '=';
-var prefixEmbed = new Discord.MessageEmbed()
-    .setColor('#4f86f7')
-    .setDescription("This channal's prefix is =.");
-function setPrefix(newPrefix) {
-    prefix = newPrefix;
-    prefixEmbed.setDescription("This channal's prefix is "+prefix+".");
-    return;
-}
+// var prefix = '=';
+// var prefixEmbed = new Discord.MessageEmbed()
+//     .setColor('#4f86f7')
+//     .setDescription("This channal's prefix is =.");
+// function setPrefix(newPrefix) {
+//     prefix = newPrefix;
+//     prefixEmbed.setDescription("This channal's prefix is "+prefix+".");
+//     return;
+// }
 
-var mainChannel;
-var mainEmbed = new Discord.MessageEmbed()
-    .setColor('#4f86f7')
-    .setDescription("This is main channel.");
-var errorNoMsgEmbed = new Discord.MessageEmbed()
-    .setColor('#FF6347')
-    .setDescription("forget message!!!");
-var errorNomainChannelEmbed = new Discord.MessageEmbed()
-    .setColor('#FF6347')
-    .setDescription("You must set main channel!!!");
+// var mainChannel;
+// var mainEmbed = new Discord.MessageEmbed()
+//     .setColor('#4f86f7')
+//     .setDescription("This is main channel.");
+// var errorNoMsgEmbed = new Discord.MessageEmbed()
+//     .setColor('#FF6347')
+//     .setDescription("forget message!!!");
+// var errorNomainChannelEmbed = new Discord.MessageEmbed()
+//     .setColor('#FF6347')
+//     .setDescription("You must set main channel!!!");
 
-var defaultEmbed = new Discord.MessageEmbed()
-    .setColor('#FF6347')
-    .setDescription("ฉันไม่เข้าใจคุณ");
+// var defaultEmbed = new Discord.MessageEmbed()
+//     .setColor('#FF6347')
+//     .setDescription("ฉันไม่เข้าใจคุณ");
 
-var talkEmbed = new Discord.MessageEmbed()
-    .setColor('#4f86f7');
-function sendTalk(messageTalk) {
-  mainChannel.send(messageTalk);
-  talkEmbed.setDescription("Sending: "+messageTalk+" to Room: "+mainChannel.name);
-}
+// var talkEmbed = new Discord.MessageEmbed()
+//     .setColor('#4f86f7');
+// function sendTalk(messageTalk) {
+//   mainChannel.send(messageTalk);
+//   talkEmbed.setDescription("Sending: "+messageTalk+" to Room: "+mainChannel.name);
+// }
 
-var helpEmbed = new Discord.MessageEmbed()
-    .setColor('#C7B5E3')
-    .setTitle("Command")
-function setHelp() {
-  helpEmbed.setDescription(prefix+"lucky : ดูดวงของคุณวันนี้");
-  return;
-}
+// var helpEmbed = new Discord.MessageEmbed()
+//     .setColor('#C7B5E3')
+//     .setTitle("Command")
+// function setHelp() {
+//   helpEmbed.setDescription(prefix+"lucky : ดูดวงของคุณวันนี้");
+//   return;
+// }
 
-var luckyEmbed = new Discord.MessageEmbed()
-    .setColor('#fff44f')
-function luckyCal(msg) {
-  id = msg.member.id();
-  if(lastlucky[id] != msg.createdAt.getDate()) {
-    lastlucky[id] = msg.createdAt.getDate();
-    luck[id] = Math.floor(Math.random() * 11); 
-  }
-  luckyEmbed
-    .setDescription("Lucky Level : "+String(luck[id]))
-    .setTitle("ดวงวันนี้ของ "+msg.member.displayName);
-  if(luck<3) {
-    luckyEmbed.setImage('https://i0.wp.com/ideasfornames.com/wp-content/uploads/2019/08/Depositphotos_61818125_s-2019.jpg');
-  }
-  else if(luck<7) {
-    luckyEmbed.setImage('https://i.pinimg.com/originals/d1/c4/6a/d1c46aa2d4a523998e140243e6985ae2.png');
-  }
-  else {
-    luckyEmbed.setImage('https://stickershop.line-scdn.net/stickershop/v1/product/1019505/LINEStorePC/main.png');
-  }
-  return;
-}
+// var luckyEmbed = new Discord.MessageEmbed()
+//     .setColor('#fff44f')
+// function luckyCal(msg) {
+//   id = msg.member.id();
+//   if(lastlucky[id] != msg.createdAt.getDate()) {
+//     lastlucky[id] = msg.createdAt.getDate();
+//     luck[id] = Math.floor(Math.random() * 11); 
+//   }
+//   luckyEmbed
+//     .setDescription("Lucky Level : "+String(luck[id]))
+//     .setTitle("ดวงวันนี้ของ "+msg.member.displayName);
+//   if(luck<3) {
+//     luckyEmbed.setImage('https://i0.wp.com/ideasfornames.com/wp-content/uploads/2019/08/Depositphotos_61818125_s-2019.jpg');
+//   }
+//   else if(luck<7) {
+//     luckyEmbed.setImage('https://i.pinimg.com/originals/d1/c4/6a/d1c46aa2d4a523998e140243e6985ae2.png');
+//   }
+//   else {
+//     luckyEmbed.setImage('https://stickershop.line-scdn.net/stickershop/v1/product/1019505/LINEStorePC/main.png');
+//   }
+//   return;
+// }
 
-var playEmbed = new Discord.MessageEmbed()
-    .setColor('#4f86f7')
-    .setDescription("Now Playing!!");
-async function play(voiceChannel,Music) {
-	const connection = await voiceChannel.join();
-	connection.play(ytdl(Music,{filter:'audioonly'}));
-  return;
-}
+// var playEmbed = new Discord.MessageEmbed()
+//     .setColor('#4f86f7')
+//     .setDescription("Now Playing!!");
+// async function play(voiceChannel,Music) {
+// 	const connection = await voiceChannel.join();
+// 	connection.play(ytdl(Music,{filter:'audioonly'}));
+//   return;
+// }
 
-client.login('NzI0NDc1MDgyOTU2NzM0NTA0.XvAt_w._P8PwIfMJnqcQj64NHF0_Ih0foY');
+// client.login('NzI0NDc1MDgyOTU2NzM0NTA0.XvAt_w._P8PwIfMJnqcQj64NHF0_Ih0foY');
 
-client.on('ready', () => {
-  console.log(`Logged in as ${client.user.tag}!`);
-});
+// client.on('ready', () => {
+//   console.log(`Logged in as ${client.user.tag}!`);
+// });
 
-client.on('message', msg => {
-  if(msg.member.user.bot)return;
-  if(msg.content[0] != prefix)return;
-  let mes = msg.content.substring(prefix.length).split(" ");
-  switch(mes[0]) {
-    case "prefix":
-      if(mes[1]) {
-        setPrefix(mes[1]);
-        msg.channel.send(prefixEmbed);
-      }
-      else {
-        msg.channel.send(prefixEmbed);
-      }
-      break;
-    case "main":
-      mainChannel = msg.channel;
-      msg.channel.send(mainEmbed);
-      break;
-    case "talk":
-      for(var i = 2; i < mes.length; i++) {
-        mes[1] = mes[1] + " " + mes[i];
-      }
-      if(mainChannel) {
-        if(mes[1]) {
-          sendTalk(mes[1]);
-          msg.channel.send(talkEmbed);
-        }
-        else {
-          msg.channel.send(errorNoMsgEmbed);
-        }
-      }
-      else {
-        msg.channel.send(errorNomainChannelEmbed);
-      }
-      break;
-    case "lucky":
-      luckyCal(msg);
-      msg.channel.send(luckyEmbed);
-      break;
-    case "help":
-      setHelp();
-      msg.channel.send(helpEmbed);
-      break;
-    case "play":
-      if(msg.member.voice.channel) {
-        if(mes[1]) {
-          msg.channel.send(playEmbed);
-          play(msg.member.voice.channel,mes[1]);
-        }
-      }
-      break;
-    default:
-      msg.channel.send(defaultEmbed);
-  }
-  return;
-});
+// client.on('message', msg => {
+//   if(msg.member.user.bot)return;
+//   if(msg.content[0] != prefix)return;
+//   let mes = msg.content.substring(prefix.length).split(" ");
+//   switch(mes[0]) {
+//     case "prefix":
+//       if(mes[1]) {
+//         setPrefix(mes[1]);
+//         msg.channel.send(prefixEmbed);
+//       }
+//       else {
+//         msg.channel.send(prefixEmbed);
+//       }
+//       break;
+//     case "main":
+//       mainChannel = msg.channel;
+//       msg.channel.send(mainEmbed);
+//       break;
+//     case "talk":
+//       for(var i = 2; i < mes.length; i++) {
+//         mes[1] = mes[1] + " " + mes[i];
+//       }
+//       if(mainChannel) {
+//         if(mes[1]) {
+//           sendTalk(mes[1]);
+//           msg.channel.send(talkEmbed);
+//         }
+//         else {
+//           msg.channel.send(errorNoMsgEmbed);
+//         }
+//       }
+//       else {
+//         msg.channel.send(errorNomainChannelEmbed);
+//       }
+//       break;
+//     case "lucky":
+//       luckyCal(msg);
+//       msg.channel.send(luckyEmbed);
+//       break;
+//     case "help":
+//       setHelp();
+//       msg.channel.send(helpEmbed);
+//       break;
+//     case "play":
+//       if(msg.member.voice.channel) {
+//         if(mes[1]) {
+//           msg.channel.send(playEmbed);
+//           play(msg.member.voice.channel,mes[1]);
+//         }
+//       }
+//       break;
+//     default:
+//       msg.channel.send(defaultEmbed);
+//   }
+//   return;
+// });
