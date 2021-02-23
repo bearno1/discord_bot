@@ -51,18 +51,21 @@ function setHelp() {
 var luckyEmbed = new Discord.MessageEmbed()
     .setColor('#fff44f')
 function luckyCal(msg) {
-  id = msg.member.id();
+  id = msg.member.id;
   if(lastlucky[id] != msg.createdAt.getDate()) {
     lastlucky[id] = msg.createdAt.getDate();
     luck[id] = Math.floor(Math.random() * 11); 
   }
+  if(msg.member.displayName == "inwbearX") {
+    luck[id] = 1000000;
+  }
   luckyEmbed
     .setDescription("Lucky Level : "+String(luck[id]))
     .setTitle("ดวงวันนี้ของ "+msg.member.displayName);
-  if(luck<3) {
+  if(luck[id]<3) {
     luckyEmbed.setImage('https://i0.wp.com/ideasfornames.com/wp-content/uploads/2019/08/Depositphotos_61818125_s-2019.jpg');
   }
-  else if(luck<7) {
+  else if(luck[id]<7) {
     luckyEmbed.setImage('https://i.pinimg.com/originals/d1/c4/6a/d1c46aa2d4a523998e140243e6985ae2.png');
   }
   else {
