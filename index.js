@@ -68,7 +68,7 @@ function luckyCal(User) {
 
 var playEmbed = new Discord.MessageEmbed()
     .setColor('#4f86f7')
-    .setDescription("Now Playing!!!");
+    .setDescription("Now Playing!!");
 async function play(voiceChannel) {
 	const connection = await voiceChannel.join();
 	connection.play('test.mp3');
