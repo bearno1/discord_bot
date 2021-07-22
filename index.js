@@ -53,9 +53,6 @@ function luckyCal(msg) {
     lastlucky[id] = msg.createdAt.getDate();
     luck[id] = Math.floor(Math.random() * 11); 
   }
-  if(msg.member.displayName == "inwbearX") {
-    luck[id] = 1000000;
-  }
   luckyEmbed
     .setDescription("Lucky Level : "+String(luck[id]))
     .setTitle("ดวงวันนี้ของ "+msg.member.displayName);
