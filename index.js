@@ -1,7 +1,4 @@
 const Discord = require('discord.js');
-const fs = require('fs');
-const ytdl = require("ytdl-core");
-const { lastIndexOf } = require('ffmpeg-static');
 const client = new Discord.Client();
 
 var luck = {};
@@ -33,7 +30,7 @@ var defaultEmbed = new Discord.MessageEmbed()
     .setColor('#FF6347')
     .setDescription("ฉันไม่เข้าใจคุณ");
 
-var talkEmbed = new Discord.MessageEmbed()
+var talkEmbed= new Discord.MessageEmbed()
     .setColor('#4f86f7');
 function sendTalk(messageTalk) {
   mainChannel.send(messageTalk);
@@ -71,15 +68,6 @@ function luckyCal(msg) {
   else {
     luckyEmbed.setImage('https://stickershop.line-scdn.net/stickershop/v1/product/1019505/LINEStorePC/main.png');
   }
-  return;
-}
-
-var playEmbed = new Discord.MessageEmbed()
-    .setColor('#4f86f7')
-    .setDescription("Now Playing!!");
-async function play(voiceChannel,Music) {
-	const connection = await voiceChannel.join();
-	connection.play(ytdl(Music,{filter:'audioonly'}));
   return;
 }
 
@@ -131,14 +119,6 @@ client.on('message', msg => {
     case "help":
       setHelp();
       msg.channel.send(helpEmbed);
-      break;
-    case "play":
-      if(msg.member.voice.channel) {
-        if(mes[1]) {
-          msg.channel.send(playEmbed);
-          play(msg.member.voice.channel,mes[1]);
-        }
-      }
       break;
     default:
       msg.channel.send(defaultEmbed);
