@@ -5,10 +5,10 @@ var luck = {};
 var lastlucky = {};
 var id;
 
-var prefix = '=';
+var prefix = '!';
 var prefixEmbed = new Discord.MessageEmbed()
     .setColor('#4f86f7')
-    .setDescription("This channal's prefix is =.");
+    .setDescription("This channal's prefix is !.");
 function setPrefix(newPrefix) {
     prefix = newPrefix;
     prefixEmbed.setDescription("This channal's prefix is "+prefix+".");
@@ -109,7 +109,7 @@ client.on('message', msg => {
         msg.channel.send(errorNomainChannelEmbed);
       }
       break;
-    case "lucky":
+    case "luck":
       luckyCal(msg);
       msg.channel.send(luckyEmbed);
       break;
