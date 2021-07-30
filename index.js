@@ -117,7 +117,7 @@ function setTable(chPos,msg) {
   if(iswin) {
     playXOEmbed.setDescription(NowTable)
                .setTitle(msg.member.displayName+" is a winner!!!\n");
-    setPlayXO();
+    XOtable = [["1","2","3"],["4","5","6"],["7","8","9"]];
   }
   else {
     playXOEmbed.setDescription(NowTable)
@@ -203,6 +203,8 @@ client.on('message', msg => {
       else{
         msg.channel.send(chooseerror1Embed);
       }
+      break;
+    case "XOleaderboard":
       break;
     default:
       msg.channel.send(defaultEmbed);
