@@ -5,7 +5,7 @@ var luck = {};
 var lastlucky = {};
 var id;
 
-var prefix = '!';
+var prefix = '=';
 var prefixEmbed = new Discord.MessageEmbed()
     .setColor('#4f86f7')
     .setDescription("This channal's prefix is !.");
@@ -41,7 +41,8 @@ var helpEmbed = new Discord.MessageEmbed()
     .setColor('#C7B5E3')
     .setTitle("Command")
 function setHelp() {
-  helpEmbed.setDescription(prefix+"lucky : ดูดวงของคุณวันนี้");
+  helpEmbed.setDescription(prefix+"lucky : ดูดวงของคุณวันนี้\n"+
+                           prefix+"playXO : เล่นเกม\n");
   return;
 }
 
@@ -66,6 +67,63 @@ function luckyCal(msg) {
     luckyEmbed.setImage('https://stickershop.line-scdn.net/stickershop/v1/product/1019505/LINEStorePC/main.png');
   }
   return;
+}
+
+var XOtable = [["1","2","3"],["4","5","6"],["7","8","9"]];
+var XOwinCon = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+var NTab = [[0,0],[0,1],[0,2],[1,0],[1,1],[1,2],[2,0],[2,1],[2,2]];
+var XOturn = 0;
+var playXOEmbed = new Discord.MessageEmbed()
+  .setColor('#4f86f7')
+var chooseerror1Embed = new Discord.MessageEmbed()
+  .setColor('#FF6347')
+  .setDescription("โปรดใส่ช่องที่คุณต้องการเลือก");
+var chooseerror2Embed = new Discord.MessageEmbed()
+  .setColor('#FF6347')
+  .setDescription("โปรดใส่ช่องในเลข 1-9");
+var chooseerror3Embed = new Discord.MessageEmbed()
+  .setColor('#FF6347')
+ .setDescription("ช่องที่คุณเลือกได้ถูกเลือกไปแล้ว");   
+function setPlayXO() {
+  playXOEmbed.setDescription("Command "+prefix+"choose เลขช่องที่ต้องการวาง: ใช้ในการเลือกช่องที่ต้องการวาง\n"+"123\n"+"456\n"+"789");
+  XOtable = [["1","2","3"],["4","5","6"],["7","8","9"]];
+  XOturn = 0;
+  return;
+}
+function setTable(chPos,msg) {
+  chPos--;
+  XOturn++;
+  var iswin = false;
+  if(XOtable[NTab[chPos][0]][NTab[chPos][1]]=="X" || XOtable[NTab[chPos][0]][NTab[chPos][1]]=="O") {
+    return false;
+  }
+  if(XOturn%2 == 0) {
+    XOtable[NTab[chPos][0]][NTab[chPos][1]] = "O";
+  }
+  else {
+    XOtable[NTab[chPos][0]][NTab[chPos][1]] = "X";
+  }
+  for(var i = 0; i< XOwinCon.length; i++) {
+    if(XOtable[NTab[XOwinCon[i][0]][0]][NTab[XOwinCon[i][0]][1]] == XOtable[NTab[XOwinCon[i][1]][0]][NTab[XOwinCon[i][1]][1]] 
+    && XOtable[NTab[XOwinCon[i][1]][0]][NTab[XOwinCon[i][1]][1]] == XOtable[NTab[XOwinCon[i][2]][0]][NTab[XOwinCon[i][2]][1]]){
+      iswin = true;
+    }
+  }
+  var NowTable = "";
+  for(var i=0; i < 3; i++) {
+    NowTable += XOtable[i][0] + XOtable[i][1] + XOtable[i][2] + "\n";
+  }
+  if(iswin) {
+    playXOEmbed.setDescription(msg.member.displayName+" is a winner!!!\n"
+                             +"Turn :"+XOturn+"\n"
+                             +NowTable);
+  }
+  else {
+    playXOEmbed.setDescription(prefix+"choose เลขช่องที่ต้องการวาง: ใช้ในการเลือกช่องที่ต้องการวาง\n"
+                             +"Turn :"+XOturn+"\n"
+                             +NowTable);
+  }
+  return true;
 }
 
 client.login('NzI0NDc1MDgyOTU2NzM0NTA0.XvAt_w._P8PwIfMJnqcQj64NHF0_Ih0foY');
@@ -116,6 +174,30 @@ client.on('message', msg => {
     case "help":
       setHelp();
       msg.channel.send(helpEmbed);
+      break;
+    case "playXO":
+      setPlayXO();
+      msg.channel.send(playXOEmbed);
+      break;
+    case "choose":
+      if(mes[1]){
+        var choosenumber = parseInt(mes[1]);
+        if(choosenumber > 9 || choosenumber < 1) {
+          msg.channel.send(chooseerror2Embed);
+        }
+        else{
+          var correctchoose = setTable(choosenumber);
+          if(correctchoose) {
+            msg.channel.send(playXOEmbed,msg);
+          }
+          else {
+            msg.channel.send(chooseerror3Embed);
+          }
+        }
+      }
+      else{
+        msg.channel.send(chooseerror1Embed);
+      }
       break;
     default:
       msg.channel.send(defaultEmbed);
