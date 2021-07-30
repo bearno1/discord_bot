@@ -95,6 +95,7 @@ function setTable(chPos,msg) {
   XOturn++;
   var iswin = false;
   if(XOtable[NTab[chPos][0]][NTab[chPos][1]]=="X" || XOtable[NTab[chPos][0]][NTab[chPos][1]]=="O") {
+    XOturn--;
     return false;
   }
   if(XOturn%2 == 0) {
@@ -114,14 +115,18 @@ function setTable(chPos,msg) {
     NowTable += XOtable[i][0] + XOtable[i][1] + XOtable[i][2] + "\n";
   }
   if(iswin) {
-    playXOEmbed.setDescription(msg.member.displayName+" is a winner!!!\n"
-                             +"Turn :"+XOturn+"\n"
-                             +NowTable);
+    playXOEmbed.setDescription(NowTable)
+               .setTitle(msg.member.displayName+" is a winner!!!\n");
+    setPlayXO();
   }
   else {
-    playXOEmbed.setDescription(prefix+"choose เลขช่องที่ต้องการวาง: ใช้ในการเลือกช่องที่ต้องการวาง\n"
-                             +"Turn :"+XOturn+"\n"
-                             +NowTable);
+    playXOEmbed.setDescription(NowTable)
+               .setTitle("Turn : "+XOturn);
+    if(XOturn==9) {
+      playXOEmbed.setDescription(NowTable)
+                 .setTitle("Draw !!!");
+      XOtable = [["1","2","3"],["4","5","6"],["7","8","9"]];
+    }
   }
   return true;
 }
@@ -186,9 +191,9 @@ client.on('message', msg => {
           msg.channel.send(chooseerror2Embed);
         }
         else{
-          var correctchoose = setTable(choosenumber);
+          var correctchoose = setTable(choosenumber,msg);
           if(correctchoose) {
-            msg.channel.send(playXOEmbed,msg);
+            msg.channel.send(playXOEmbed);
           }
           else {
             msg.channel.send(chooseerror3Embed);
