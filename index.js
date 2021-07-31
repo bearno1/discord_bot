@@ -111,6 +111,15 @@ function setTable(chPos,msg,isAI) {
       iswin = true;
     }
   }
+  if(iswin&&(!isAI)) {
+    for(var i = 0; i < 3; i++) {
+      for(var j = 0 ;j < 3;j++){
+        if(XOtable[i][j] == "X")XOtable[i][j] = "O";
+        if(XOtable[i][j] == "O")XOtable[i][j] = "X";
+      }
+    }
+    isAI = true;
+  }
   var NowTable = "";
   for(var i=0; i < 3; i++) {
     NowTable += XOtable[i][0] + XOtable[i][1] + XOtable[i][2] + "\n";
@@ -139,7 +148,7 @@ function setTable(chPos,msg,isAI) {
   }
   return [true,false];
 }
-var AIchoose = [5,1,7,3,9,4,6,2,8];
+var AIchoose = [5,1,7,3,4,6,2,8,9];
 var playXOAIEmbed = new Discord.MessageEmbed()
   .setColor('#4f86f7')
 function setPlayXOAI() {
@@ -239,12 +248,10 @@ client.on('message', msg => {
           if(correctchoose[0]) {
             msg.channel.send(playXOEmbed);
             if(!correctchoose[1]) {
-              console.log("no win");
               for(var AIC = 0; AIC < 9; AIC++) {
                 var correctchooseforbot = setTable(AIchoose[AIC],msg,true);
                 if(correctchooseforbot[0]) {
                   msg.channel.send("=CC "+AIchoose[AIC]);
-                  console.log("PP");
                   msg.channel.send(playXOEmbed);
                   break;
                 }
