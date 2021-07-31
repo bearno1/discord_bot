@@ -85,7 +85,7 @@ var chooseerror3Embed = new Discord.MessageEmbed()
   .setColor('#FF6347')
  .setDescription("ช่องที่คุณเลือกได้ถูกเลือกไปแล้ว");   
 function setPlayXO() {
-  playXOEmbed.setDescription("Command "+prefix+"choose เลขช่องที่ต้องการวาง: ใช้ในการเลือกช่องที่ต้องการวาง\n"+"123\n"+"456\n"+"789");
+  playXOEmbed.setDescription("Command "+prefix+"C เลขช่องที่ต้องการวาง: ใช้ในการเลือกช่องที่ต้องการวาง\n"+"123\n"+"456\n"+"789");
   XOtable = [["1","2","3"],["4","5","6"],["7","8","9"]];
   XOturn = 0;
   return;
@@ -184,7 +184,7 @@ client.on('message', msg => {
       setPlayXO();
       msg.channel.send(playXOEmbed);
       break;
-    case "choose":
+    case "C":
       if(mes[1]){
         var choosenumber = parseInt(mes[1]);
         if(choosenumber > 9 || choosenumber < 1) {
@@ -203,8 +203,6 @@ client.on('message', msg => {
       else{
         msg.channel.send(chooseerror1Embed);
       }
-      break;
-    case "XOleaderboard":
       break;
     default:
       msg.channel.send(defaultEmbed);
