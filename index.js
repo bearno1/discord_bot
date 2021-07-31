@@ -208,6 +208,8 @@ client.on('message', msg => {
         msg.channel.send(chooseerror1Embed);
       }
       break;
+    case "math":
+      break;
     default:
       msg.channel.send(defaultEmbed);
   }
