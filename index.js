@@ -11,7 +11,7 @@ function setPrefix(newPrefix) {
     return;
 }
 
-var mainChannel;
+var mainChannel = 0;
 var mainEmbed = new Discord.MessageEmbed()
     .setColor('#4f86f7')
     .setDescription("This is main channel.");
@@ -174,6 +174,7 @@ client.on('ready', () => {
 client.on('message', msg => {
   if(msg.member.user.bot)return;
   if(msg.content[0] != prefix)return;
+  if(mainChannel == 0)mainChannel = msg.channel;
   let mes = msg.content.substring(prefix.length).split(" ");
   switch(mes[0]) {
     case "prefix":
