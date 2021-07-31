@@ -129,7 +129,7 @@ function setTable(chPos,msg,isAI) {
       playXOEmbed.setDescription(NowTable)
                  .setTitle("Creamii is a winner!!!\n");
       XOtable = [["1","2","3"],["4","5","6"],["7","8","9"]];
-      return [true,false];
+      return [true,true];
     }
     else {
       playXOEmbed.setDescription(NowTable)
