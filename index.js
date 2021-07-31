@@ -46,7 +46,7 @@ function setHelp() {
 var timeEmbed = new Discord.MessageEmbed()
     .setColor('#C7B5E3')
 function setTime(msg) {
-  timeEmbed.setDescription(String(msg.createdAt.getHours())+" : "+String(msg.createdAt.getMinutes()));
+  timeEmbed.setDescription(String((msg.createdAt.getHours()+7)%24)+" : "+String(msg.createdAt.getMinutes()));
   return;
 }
 
