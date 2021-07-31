@@ -1,10 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
-var luck = {};
-var lastlucky = {};
-var id;
-
 var prefix = '=';
 var prefixEmbed = new Discord.MessageEmbed()
     .setColor('#4f86f7')
@@ -47,6 +43,16 @@ function setHelp() {
   return;
 }
 
+var timeEmbed = new Discord.MessageEmbed()
+    .setColor('#C7B5E3')
+function setTime(msg) {
+  timeEmbed.setDescription(String(msg.createdAt.getHours())+" : "+String(msg.createdAt.getMinutes()));
+  return;
+}
+
+var luck = {};
+var lastlucky = {};
+var id;
 var luckyEmbed = new Discord.MessageEmbed()
     .setColor('#fff44f')
 function luckyCal(msg) {
@@ -268,6 +274,9 @@ client.on('message', msg => {
         msg.channel.send(chooseerror1Embed);
       }
       break;
+    case "time":
+      setTime(msg);
+      msg.channel.send(timeEmbed);
     default:
       msg.channel.send(defaultEmbed);
   }
