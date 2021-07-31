@@ -115,7 +115,7 @@ function setTable(chPos,msg,isAI) {
     for(var i = 0; i < 3; i++) {
       for(var j = 0 ;j < 3;j++){
         if(XOtable[i][j] == "X")XOtable[i][j] = "O";
-        if(XOtable[i][j] == "O")XOtable[i][j] = "X";
+        else if(XOtable[i][j] == "O")XOtable[i][j] = "X";
       }
     }
     isAI = true;
