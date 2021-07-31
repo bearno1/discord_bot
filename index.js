@@ -42,7 +42,8 @@ var helpEmbed = new Discord.MessageEmbed()
     .setTitle("Command")
 function setHelp() {
   helpEmbed.setDescription(prefix+"lucky : ดูดวงของคุณวันนี้\n"+
-                           prefix+"playXO : เล่นเกม\n");
+                           prefix+"playXO : เล่นเกม\n"+
+                           prefix+"XOwithAI : เล่นเกมกับBOT\n");
   return;
 }
 
@@ -90,7 +91,7 @@ function setPlayXO() {
   XOturn = 0;
   return;
 }
-function setTable(chPos,msg) {
+function setTable(chPos,msg,isAI) {
   chPos--;
   XOturn++;
   var iswin = false;
@@ -115,9 +116,17 @@ function setTable(chPos,msg) {
     NowTable += XOtable[i][0] + XOtable[i][1] + XOtable[i][2] + "\n";
   }
   if(iswin) {
-    playXOEmbed.setDescription(NowTable)
-               .setTitle(msg.member.displayName+" is a winner!!!\n");
-    XOtable = [["1","2","3"],["4","5","6"],["7","8","9"]];
+    if(isAI) {
+      playXOEmbed.setDescription(NowTable)
+                 .setTitle("Creamii is a winner!!!\n");
+      XOtable = [["1","2","3"],["4","5","6"],["7","8","9"]];
+    }
+    else {
+      playXOEmbed.setDescription(NowTable)
+                 .setTitle(msg.member.displayName+" is a winner!!!\n");
+      XOtable = [["1","2","3"],["4","5","6"],["7","8","9"]];
+      return false;
+    }
   }
   else {
     playXOEmbed.setDescription(NowTable)
@@ -130,10 +139,15 @@ function setTable(chPos,msg) {
   }
   return true;
 }
-
-var colorerrorEmbed = new Discord.MessageEmbed()
-  .setColor('#FF6347')
-  .setDescription("Please enter color that you want.");
+var AIchoose = [5,1,7,3,9,4,6,2,8];
+var playXOAIEmbed = new Discord.MessageEmbed()
+  .setColor('#4f86f7')
+function setPlayXOAI() {
+  playXOAIEmbed.setDescription("Command "+prefix+"CC เลขช่องที่ต้องการวาง: ใช้ในการเลือกช่องที่ต้องการวาง\n"+"123\n"+"456\n"+"789");
+  XOtable = [["1","2","3"],["4","5","6"],["7","8","9"]];
+  XOturn = 0;
+  return;
+}
 
 client.login('NzI0NDc1MDgyOTU2NzM0NTA0.XvAt_w._P8PwIfMJnqcQj64NHF0_Ih0foY');
 
@@ -195,7 +209,7 @@ client.on('message', msg => {
           msg.channel.send(chooseerror2Embed);
         }
         else{
-          var correctchoose = setTable(choosenumber,msg);
+          var correctchoose = setTable(choosenumber,msg,false);
           if(correctchoose) {
             msg.channel.send(playXOEmbed);
           }
@@ -209,6 +223,37 @@ client.on('message', msg => {
       }
       break;
     case "math":
+      break;
+    case "XOwithAI":
+      setPlayXOAI();
+      msg.channel.send(playXOAIEmbed);
+      break;
+    case "CC":
+      if(mes[1]){
+        var choosenumber = parseInt(mes[1]);
+        if(choosenumber > 9 || choosenumber < 1) {
+          msg.channel.send(chooseerror2Embed);
+        }
+        else{
+          var correctchoose = setTable(choosenumber,msg,false);
+          if(correctchoose) {
+            msg.channel.send(playXOEmbed);
+            for(var AIC = 0; AIC < 9; AIC++) {
+              if(setTable(AIchoose[AIC],msg,true)) {
+                msg.channel.send("=CC "+AIchoose[AIC]);
+                msg.channel.send(playXOEmbed);
+                break;
+              }
+            }
+          }
+          else {
+            msg.channel.send(chooseerror3Embed);
+          }
+        }
+      }
+      else{
+        msg.channel.send(chooseerror1Embed);
+      }
       break;
     default:
       msg.channel.send(defaultEmbed);
