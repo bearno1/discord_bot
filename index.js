@@ -278,6 +278,7 @@ client.on('message', msg => {
     case "time":
       setTime(msg);
       msg.channel.send(timeEmbed);
+      break;
     default:
       msg.channel.send(defaultEmbed);
   }
