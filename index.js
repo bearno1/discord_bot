@@ -8,7 +8,7 @@ var id;
 var prefix = '=';
 var prefixEmbed = new Discord.MessageEmbed()
     .setColor('#4f86f7')
-    .setDescription("This channal's prefix is !.");
+    .setDescription("This channal's prefix is =.");
 function setPrefix(newPrefix) {
     prefix = newPrefix;
     prefixEmbed.setDescription("This channal's prefix is "+prefix+".");
@@ -77,13 +77,13 @@ var playXOEmbed = new Discord.MessageEmbed()
   .setColor('#4f86f7')
 var chooseerror1Embed = new Discord.MessageEmbed()
   .setColor('#FF6347')
-  .setDescription("โปรดใส่ช่องที่คุณต้องการเลือก");
+  .setDescription("Please choose number from 1-9");
 var chooseerror2Embed = new Discord.MessageEmbed()
   .setColor('#FF6347')
-  .setDescription("โปรดใส่ช่องในเลข 1-9");
+  .setDescription("Please choose number from 1-9");
 var chooseerror3Embed = new Discord.MessageEmbed()
   .setColor('#FF6347')
- .setDescription("ช่องที่คุณเลือกได้ถูกเลือกไปแล้ว");   
+ .setDescription("Please choose other number from 1-9");   
 function setPlayXO() {
   playXOEmbed.setDescription("Command "+prefix+"C เลขช่องที่ต้องการวาง: ใช้ในการเลือกช่องที่ต้องการวาง\n"+"123\n"+"456\n"+"789");
   XOtable = [["1","2","3"],["4","5","6"],["7","8","9"]];
@@ -130,6 +130,10 @@ function setTable(chPos,msg) {
   }
   return true;
 }
+
+var colorerrorEmbed = new Discord.MessageEmbed()
+  .setColor('#FF6347')
+  .setDescription("Please enter color that you want.");
 
 client.login('NzI0NDc1MDgyOTU2NzM0NTA0.XvAt_w._P8PwIfMJnqcQj64NHF0_Ih0foY');
 
