@@ -78,10 +78,10 @@ var playXOEmbed = new Discord.MessageEmbed()
   .setColor('#4f86f7')
 var chooseerror1Embed = new Discord.MessageEmbed()
   .setColor('#FF6347')
-  .setDescription("Please choose number from 1-9");
+  .setDescription("Please choose number from 1-9 !");
 var chooseerror2Embed = new Discord.MessageEmbed()
   .setColor('#FF6347')
-  .setDescription("Please choose number from 1-9");
+  .setDescription("Please choose number from 1-9 !!");
 var chooseerror3Embed = new Discord.MessageEmbed()
   .setColor('#FF6347')
  .setDescription("Please choose other number from 1-9");   
@@ -97,7 +97,7 @@ function setTable(chPos,msg,isAI) {
   var iswin = false;
   if(XOtable[NTab[chPos][0]][NTab[chPos][1]]=="X" || XOtable[NTab[chPos][0]][NTab[chPos][1]]=="O") {
     XOturn--;
-    return false;
+    return [false,false];
   }
   if(XOturn%2 == 0) {
     XOtable[NTab[chPos][0]][NTab[chPos][1]] = "O";
@@ -125,19 +125,19 @@ function setTable(chPos,msg,isAI) {
       playXOEmbed.setDescription(NowTable)
                  .setTitle(msg.member.displayName+" is a winner!!!\n");
       XOtable = [["1","2","3"],["4","5","6"],["7","8","9"]];
-      return false;
+      return [true,true];
     }
   }
   else {
     playXOEmbed.setDescription(NowTable)
                .setTitle("Turn : "+XOturn);
-    if(XOturn==9) {
+    if(XOturn>=9) {
       playXOEmbed.setDescription(NowTable)
                  .setTitle("Draw !!!");
       XOtable = [["1","2","3"],["4","5","6"],["7","8","9"]];
     }
   }
-  return true;
+  return [true,false];
 }
 var AIchoose = [5,1,7,3,9,4,6,2,8];
 var playXOAIEmbed = new Discord.MessageEmbed()
@@ -210,7 +210,7 @@ client.on('message', msg => {
         }
         else{
           var correctchoose = setTable(choosenumber,msg,false);
-          if(correctchoose) {
+          if(correctchoose[0]) {
             msg.channel.send(playXOEmbed);
           }
           else {
@@ -236,13 +236,18 @@ client.on('message', msg => {
         }
         else{
           var correctchoose = setTable(choosenumber,msg,false);
-          if(correctchoose) {
+          if(correctchoose[0]) {
             msg.channel.send(playXOEmbed);
-            for(var AIC = 0; AIC < 9; AIC++) {
-              if(setTable(AIchoose[AIC],msg,true)) {
-                msg.channel.send("=CC "+AIchoose[AIC]);
-                msg.channel.send(playXOEmbed);
-                break;
+            if(!correctchoose[1]) {
+              console.log("no win");
+              for(var AIC = 0; AIC < 9; AIC++) {
+                var correctchooseforbot = setTable(AIchoose[AIC],msg,true);
+                if(correctchooseforbot[0]) {
+                  msg.channel.send("=CC "+AIchoose[AIC]);
+                  console.log("PP");
+                  msg.channel.send(playXOEmbed);
+                  break;
+                }
               }
             }
           }
