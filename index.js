@@ -157,7 +157,7 @@ client.on('message', msg => {
       break;
     case "main":
       mainChannel = msg.channel;
-      msg.channel.send(mainEmbed);
+      //msg.channel.send(mainEmbed);
       break;
     case "talk":
       for(var i = 2; i < mes.length; i++) {
