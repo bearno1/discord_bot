@@ -37,7 +37,7 @@ var level = {};
 var levelEmbed= new Discord.MessageEmbed()
     .setColor('#4f86f7');
 function setLevel(userID) {
-  levelEmbed.setDescription("Your level is "+level[userID]);
+  levelEmbed.setDescription("Your level is "+String(level[userID]));
 }
 
 var helpEmbed = new Discord.MessageEmbed()
