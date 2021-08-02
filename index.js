@@ -181,6 +181,8 @@ client.on('ready', () => {
 
 client.on('message', msg => {
   if(msg.member.user.bot)return;
+  console.log(level[msg.member.id]);
+  if(!level[msg.member.id])level[msg.member.id] = 0,console.log("ll");
   level[msg.member.id]++;
   if(msg.content[0] != prefix)return;
   if(mainChannel == 0)mainChannel = msg.channel;
