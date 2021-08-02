@@ -33,6 +33,13 @@ function sendTalk(messageTalk) {
   talkEmbed.setDescription("Sending: "+messageTalk+" to Room: "+mainChannel.name);
 }
 
+var level = {};
+var levelEmbed= new Discord.MessageEmbed()
+    .setColor('#4f86f7');
+function setLevel(userID) {
+  levelEmbed.setDescription("Your level is "+level[userID]);
+}
+
 var helpEmbed = new Discord.MessageEmbed()
     .setColor('#C7B5E3')
     .setTitle("Command")
@@ -174,6 +181,7 @@ client.on('ready', () => {
 
 client.on('message', msg => {
   if(msg.member.user.bot)return;
+  level[msg.member.id]++;
   if(msg.content[0] != prefix)return;
   if(mainChannel == 0)mainChannel = msg.channel;
   let mes = msg.content.substring(prefix.length).split(" ");
@@ -181,11 +189,8 @@ client.on('message', msg => {
     case "prefix":
       if(mes[1]) {
         setPrefix(mes[1]);
-        msg.channel.send(prefixEmbed);
       }
-      else {
-        msg.channel.send(prefixEmbed);
-      }
+      msg.channel.send(prefixEmbed);
       break;
     case "main":
       mainChannel = msg.channel;
@@ -279,6 +284,10 @@ client.on('message', msg => {
     case "time":
       setTime(msg);
       msg.channel.send(timeEmbed);
+      break;
+    case "lv":
+      setLevel(msg.member.id);
+      msg.channel.send(levelEmbed);
       break;
     default:
       msg.channel.send(defaultEmbed);
