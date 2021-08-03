@@ -33,13 +33,6 @@ function sendTalk(messageTalk) {
   talkEmbed.setDescription("Sending: "+messageTalk+" to Room: "+mainChannel.name);
 }
 
-var level = {};
-var levelEmbed= new Discord.MessageEmbed()
-    .setColor('#4f86f7');
-function setLevel(userID) {
-  levelEmbed.setDescription("Your level is "+String(level[userID]));
-}
-
 var helpEmbed = new Discord.MessageEmbed()
     .setColor('#C7B5E3')
     .setTitle("Command")
@@ -137,7 +130,7 @@ function setTable(chPos,msg,isAI) {
   for(var i=0; i < 3; i++) {
     NowTable += XOtable[i][0] + XOtable[i][1] + XOtable[i][2] + "\n";
   }
-  if(iswin) {
+  if(iswin) {s
     if(isAI) {
       playXOEmbed.setDescription(NowTable)
                  .setTitle("Creamii is a winner!!!\n");
@@ -181,8 +174,6 @@ client.on('ready', () => {
 
 client.on('message', msg => {
   if(msg.member.user.bot)return;
-  if(!level[msg.member.id])level[msg.member.id] = 0;
-  level[msg.member.id]++;
   if(msg.content[0] != prefix)return;
   if(mainChannel == 0)mainChannel = msg.channel;
   let mes = msg.content.substring(prefix.length).split(" ");
@@ -285,10 +276,6 @@ client.on('message', msg => {
     case "time":
       setTime(msg);
       msg.channel.send(timeEmbed);
-      break;
-    case "lv":
-      setLevel(msg.member.id);
-      msg.channel.send(levelEmbed);
       break;
     default:
       msg.channel.send(defaultEmbed);
