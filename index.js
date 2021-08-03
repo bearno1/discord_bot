@@ -130,7 +130,7 @@ function setTable(chPos,msg,isAI) {
   for(var i=0; i < 3; i++) {
     NowTable += XOtable[i][0] + XOtable[i][1] + XOtable[i][2] + "\n";
   }
-  if(iswin) {s
+  if(iswin) {
     if(isAI) {
       playXOEmbed.setDescription(NowTable)
                  .setTitle("Creamii is a winner!!!\n");
