@@ -1,5 +1,8 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
+const fs = require('fs');
+let fortune = require('./fortune.json');
+
 
 var prefix = '=';
 var prefixEmbed = new Discord.MessageEmbed()
@@ -24,7 +27,7 @@ var errorNomainChannelEmbed = new Discord.MessageEmbed()
 
 var defaultEmbed = new Discord.MessageEmbed()
     .setColor('#FF6347')
-    .setDescription("ฉันไม่เข้าใจคุณ");
+    .setDescription("Sorry, I'm afraid I don't follow you.");
 
 var talkEmbed= new Discord.MessageEmbed()
     .setColor('#4f86f7');
@@ -37,9 +40,9 @@ var helpEmbed = new Discord.MessageEmbed()
     .setColor('#C7B5E3')
     .setTitle("Command")
 function setHelp() {
-  helpEmbed.setDescription(prefix+"lucky : ดูดวงของคุณวันนี้\n"+
-                           prefix+"playXO : เล่นเกม\n"+
-                           prefix+"XOwithAI : เล่นเกมกับBOT\n");
+  helpEmbed.setDescription(prefix+"fortune : fortune-telling\n"+
+                           prefix+"playXO : play XO with your friend\n"+
+                           prefix+"XOwithAI : play XO with Creamii\n");
   return;
 }
 
@@ -50,29 +53,36 @@ function setTime(msg) {
   return;
 }
 
-var luck = {};
-var lastlucky = {};
 var id;
 var luckyEmbed = new Discord.MessageEmbed()
     .setColor('#fff44f')
 function luckyCal(msg) {
   id = msg.member.id;
-  if(lastlucky[id] != msg.createdAt.getDate()) {
-    lastlucky[id] = msg.createdAt.getDate();
-    luck[id] = Math.floor(Math.random() * 11); 
+  if(!fortune[id]) {
+    fortune[id] = {
+      LastFortuneTime: msg.createdAt.getDate(),
+      FortuneLV: Math.floor(Math.random() * 11)
+    };
+  }
+  if(fortune[id].LastFortuneTime != msg.createdAt.getDate()) {
+    fortune[id].LastFortuneTime = msg.createdAt.getDate();
+    fortune[id].FortuneLV = Math.floor(Math.random() * 11); 
   }
   luckyEmbed
-    .setDescription("Lucky Level : "+String(luck[id]))
-    .setTitle("ดวงวันนี้ของ "+msg.member.displayName);
-  if(luck[id]<3) {
+    .setDescription("Fortune Level : "+String(fortune[id].FortuneLV))
+    .setTitle("Your Fortune "+msg.member.displayName);
+  if(fortune[id].FortuneLV<3) {
     luckyEmbed.setImage('https://i0.wp.com/ideasfornames.com/wp-content/uploads/2019/08/Depositphotos_61818125_s-2019.jpg');
   }
-  else if(luck[id]<7) {
+  else if(fortune[id].FortuneLV<7) {
     luckyEmbed.setImage('https://i.pinimg.com/originals/d1/c4/6a/d1c46aa2d4a523998e140243e6985ae2.png');
   }
   else {
     luckyEmbed.setImage('https://stickershop.line-scdn.net/stickershop/v1/product/1019505/LINEStorePC/main.png');
   }
+  fs.writeFile('./fortune.json',JSON.stringify(fortune),(err)=>{
+    if(err)console.log(err);
+  });
   return;
 }
 
@@ -92,7 +102,7 @@ var chooseerror3Embed = new Discord.MessageEmbed()
   .setColor('#FF6347')
  .setDescription("Please choose other number from 1-9");   
 function setPlayXO() {
-  playXOEmbed.setDescription("Command "+prefix+"C เลขช่องที่ต้องการวาง: ใช้ในการเลือกช่องที่ต้องการวาง\n"+"123\n"+"456\n"+"789");
+  playXOEmbed.setDescription("Command "+prefix+"C number: choosing number to play\n"+"123\n"+"456\n"+"789");
   XOtable = [["1","2","3"],["4","5","6"],["7","8","9"]];
   XOturn = 0;
   return;
@@ -160,7 +170,7 @@ var AIchoose = [5,1,7,3,4,6,2,8,9];
 var playXOAIEmbed = new Discord.MessageEmbed()
   .setColor('#4f86f7')
 function setPlayXOAI() {
-  playXOAIEmbed.setDescription("Command "+prefix+"CC เลขช่องที่ต้องการวาง: ใช้ในการเลือกช่องที่ต้องการวาง\n"+"123\n"+"456\n"+"789");
+  playXOAIEmbed.setDescription("Command "+prefix+"CC number: choosing number to play\n"+"123\n"+"456\n"+"789");
   XOtable = [["1","2","3"],["4","5","6"],["7","8","9"]];
   XOturn = 0;
   return;
@@ -205,7 +215,7 @@ client.on('message', msg => {
         msg.channel.send(errorNomainChannelEmbed);
       }
       break;
-    case "luck":
+    case "fortune":
       luckyCal(msg);
       msg.channel.send(luckyEmbed);
       break;
